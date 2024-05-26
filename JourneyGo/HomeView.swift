@@ -43,19 +43,25 @@ struct HomeView: View {
                        
                     }
                 }
-
-                MapViewActionButton(mapState: $mapState)
-                    .padding(.leading)
-                    .padding(.top, 4)
+                ZStack {
+                    MapViewActionButton(mapState: $mapState)
+                        .padding(.leading)
+                        .padding(.top, 4)
+                }
+               
             }
-
+          
             if mapState == .locationSelected || mapState == .polylineAdded {
                 RideRequestView()
                 JourneyMapViewRepresentable(mapState: $mapState)
                     .padding(.leading, 500)
                     .ignoresSafeArea()
-//                    .transition(.move(edge: .leading))
+                
+              
             }
+           
+            
+    
         }
         .edgesIgnoringSafeArea(.bottom)
         .onReceive(LocationManager.shared.$userLocation, perform: { location in

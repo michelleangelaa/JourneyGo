@@ -69,57 +69,55 @@ struct RideRequestView: View {
                     .foregroundColor(.gray)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                VStack(spacing: 4) {
+                VStack(spacing: 8) {
                     ForEach(RideType.allCases) { type in
                             
-                        HStack {
+                        HStack(spacing: 16) {
                             Image(systemName: type.imageName)
-                                .fontWeight(.medium)
+                                .fontWeight(.heavy)
+                                .padding(.leading, 20)
 //                                .resizable()
 //                                .frame(width: 50, height: 50)
 //                                .scaledToFit()
-                            VStack (alignment: .leading) {
+                            VStack(alignment: .leading, spacing: 2) {
                                 HStack(spacing: 4) {
                                     Text(type.description)
                                         .font(.system(size: 20, weight: .semibold))
-                                        //
-                                        //                                    Text("Rp " + locationViewModel .computeRidePrice(forType: type).toCurrency())
-                                        //                                        .font(.system(size: 14, weight: .semibold))
-    //                                    .padding()
+                                    //
+                                    Text("Pts: " + locationViewModel.computeRidePrice(forType: type).toCurrency())
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .padding()
                                 }
                                 HStack {
                                     HStack {
-                                        Text("⚡️")
-                                        Text(" 23")
-                                            .font(.system(size: 12, weight: .semibold))
-
+                                        Text("⛑️")
+                                        Text("\(type.healthRate)")
+                                            .font(.subheadline)
+//                                            .font(.system(size: 12, weight: .semibold))
                                     }
                                     HStack {
-                                        Text("⚡️")
-                                        Text(" 23")
+                                        Text("🍃")
+                                        Text("\(type.environmentalRate)")
+                                            .font(.subheadline)
                                     }
                                     HStack {
-                                        Text("⚡️")
-                                        Text(" 23")
+                                        Text("🧘")
+                                        Text("\(type.antiStressRate)")
+                                            .font(.subheadline)
                                     }
                                     HStack {
-                                        Text("⚡️")
-                                        Text(" 23")
+                                        Text("💨")
+                                        Text("\(type.efficiencyRate)")
+                                            .font(.subheadline)
                                     }
-                                    HStack {
-                                        Text("⚡️")
-                                        Text(" 23")
-                                    }
-                                    
                                 }
                             }
+                            Spacer()
                         }
-                        
-                           
-                        .frame(width: 480, height: 80)
+                        .frame(width: 460, height: 100)
                         .foregroundColor(type == selectedRideType ? .white : Color.theme.primaryTextColor)
                         .background(type == selectedRideType ? .blue : Color.theme.secondaryBackgroundColor)
-                        .scaleEffect(type == selectedRideType ? 1.2 : 1.0)
+                        .scaleEffect(type == selectedRideType ? 1.05 : 1.0)
                         .cornerRadius(10)
                         .onTapGesture {
                             withAnimation(.spring()) {
@@ -134,47 +132,23 @@ struct RideRequestView: View {
                 Divider()
                     .padding(.vertical, 8)
                     .opacity(0)
-
-                HStack(spacing: 12) {
-                    Text("Visa")
-                        .font(.subheadline)
-                        .fontWeight(.semibold)
-                        .padding(6)
-                        .background(Color.theme.secondaryBackgroundColor)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
-                        .foregroundStyle(.white)
-                        .padding(.leading)
-                    
-                    Text("**** 1234")
-//                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Image(systemName: "chevron.right")
-                        .imageScale(/*@START_MENU_TOKEN@*/ .medium/*@END_MENU_TOKEN@*/)
-                        .padding()
-                }
-                .frame(height: 50)
-                .background(Color(.systemGroupedBackground))
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.horizontal)
                 
                 Divider()
                     .padding(.vertical, 4)
                     .opacity(0)
 
-                Button {} label: {
-                    Text("CONFIRM RIDE")
+                Button { } label: {
+                    Text("JourneyGo!")
                         .fontWeight(/*@START_MENU_TOKEN@*/ .bold/*@END_MENU_TOKEN@*/)
                         .foregroundStyle(Color(.white))
                         .padding(.horizontal)
-                        .frame(width: UIScreen.main.bounds.width - 32, height: 50)
-                        .background(Color(.blue))
+                        .frame(width: 460, height: 50)
+                        .background(Color(.gray))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         .scaledToFill()
                 }
             }
-            .frame(width: 500, height: UIScreen.main.bounds.height)
+            .frame(width: 500, height: 750)
             .background(Color.theme.backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             Spacer()

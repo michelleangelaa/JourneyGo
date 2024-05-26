@@ -33,7 +33,7 @@ enum RideType: Int, CaseIterable, Identifiable {
         }
     }
 
-    var healthRate: Double {
+    var healthRate: Int {
         switch self {
         case .walk: return 10
         case .bike: return 8
@@ -42,7 +42,7 @@ enum RideType: Int, CaseIterable, Identifiable {
         }
     }
 
-    var timeRate: Double {
+    var timeRate: Int {
         switch self {
         case .walk: return 2
         case .bike: return 4
@@ -51,7 +51,7 @@ enum RideType: Int, CaseIterable, Identifiable {
         }
     }
 
-    var environmentalRate: Double {
+    var environmentalRate: Int {
         switch self {
         case .walk: return 10
         case .bike: return 8
@@ -60,7 +60,7 @@ enum RideType: Int, CaseIterable, Identifiable {
         }
     }
 
-    var antiStressRate: Double {
+    var antiStressRate: Int {
         switch self {
         case .walk: return 8
         case .bike: return 6
@@ -69,30 +69,40 @@ enum RideType: Int, CaseIterable, Identifiable {
         }
     }
 
-    var efficiencyRate: Double {
+    var efficiencyRate: Int {
         switch self {
         case .walk: return 3
         case .bike: return 5
-        case .motorbike: return 8
-        case .car: return 10
+        case .motorbike: return 10
+        case .car: return 8
+        }
+    }
+    
+    func computeScore() -> Int {
+        return (healthRate + timeRate + environmentalRate + antiStressRate + efficiencyRate) / 5
+    }
+
+    var baseFare: Double {
+        switch self {
+        case .walk:
+            return Double(computeScore())
+        case .bike:
+            return Double(computeScore())
+        case .motorbike:
+            return Double(computeScore())
+        case .car:
+            return Double(computeScore())
         }
     }
 
-//    var baseFare: Double {
-//        switch self {
-//        case .uberX: return 5
-//        case .black: return 20
-//        case .uberXL: return 10
-//        }
-//    }
-//
-//    func computerPrice(for distanceInMeters: Double) -> Double {
-//        let distanceInMiles = distanceInMeters / 1600
-//
-//        switch self {
-//        case .uberX: return distanceInMiles * 1.5 + baseFare
-//        case .black: return distanceInMiles * 2.0 + baseFare
-//        case .uberXL: return distanceInMiles * 1.75 + baseFare
-//        }
-//    }
+    func computerPrice(for distanceInMeters: Double) -> Double {
+        let distanceInMiles = distanceInMeters / 1600
+
+        switch self {
+        case .walk: return distanceInMiles * 0.3 + baseFare
+        case .bike: return distanceInMiles * 1 + baseFare
+        case .motorbike: return distanceInMiles * 3 + baseFare
+        case .car: return distanceInMiles * 5 + baseFare
+        }
+    }
 }
